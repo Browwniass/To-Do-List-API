@@ -46,6 +46,7 @@ INSTALLED_APPS += [
 INSTALLED_APPS += [
     'api',
     'common',
+    'tasks',
 ]
 
 # after apps
