@@ -169,5 +169,5 @@ media/
 /media/
 */media/
 
-*/migrations/
-api/migrations/
+*/migrations/*
+!*/migrations/__init__.py

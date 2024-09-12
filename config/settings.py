@@ -6,18 +6,9 @@ import environ
 root = environ.Path(__file__) - 2
 env = environ.Env()
 
-environ.Env.read_env(env.str(root(), '.env'))
+environ.Env.read_env(env.str(root(), '.env'), overwrite=True)
 BASE_DIR = root()
 
-
-
-# SECURITY WARNING: keep the secret key used in production secret!
-#SECRET_KEY = 'django-insecure-g_)98+z3!4+=kgu&#aym*ewz5#-xk)_ebw3f75_74f2sz5oepj'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-#DEBUG = True
-
-#ALLOWED_HOSTS = []
 
 
 SECRET_KEY = env.str('SECRET_KEY')
@@ -47,6 +38,7 @@ INSTALLED_APPS += [
     'api',
     'common',
     'tasks',
+    'users',
 ]
 
 # after apps
@@ -85,6 +77,11 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
+ 
+# Custom user model
+AUTH_USER_MODEL = 'users.User'
+# Custom user model
+AUTHENTICATION_BACKENDS = ('users.backends.AuthBackend',)
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
@@ -92,7 +89,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': env.str('PG_DATABASE', 'blog'),
+        'NAME': env.str('PG_DATABASE', 'to_do_db'),
         'USER': env.str('PG_USER', 'Brownie'),
         'PASSWORD': env.str('PG_PASSWORD', 'admin'),
         'HOST': env.str('DB_HOST', 'localhost'),  # Replace with your PostgreSQL server's address if necessary
