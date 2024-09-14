@@ -2,6 +2,9 @@ from common.views.mixins import LCRUDViewSet
 from tasks.models.task import Task
 from tasks.serializers.api.tasks import TaskListSerializer, TaskDetailSerializer
 from drf_spectacular.utils import extend_schema_view, extend_schema
+from django_filters import rest_framework as filters
+from rest_framework.filters import SearchFilter
+from tasks.filters import TaskFilter
 
 
 @extend_schema_view(
@@ -15,6 +18,9 @@ from drf_spectacular.utils import extend_schema_view, extend_schema
 class TasksModelView(LCRUDViewSet):
     queryset = Task.objects.all()
     serializer_class = TaskListSerializer
+    filter_backends = (filters.DjangoFilterBackend, SearchFilter)
+    filterset_class = TaskFilter
+    search_fields = ('name',)
 
     def get_serializer_class(self):
         if self.action in ['update', 'partial_update', 'retrieve', 'create']:

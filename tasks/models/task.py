@@ -8,7 +8,7 @@ class Task(models.Model):
     created = models.DateField('Время создания', auto_now_add=True,)
     due_to = models.DateField('Дедлайн', null=True, blank=True,)
     owner = models.ForeignKey(
-        'users.User', models.CASCADE, 'tasks', verbose_name='Владелец', 
+        'users.User', models.CASCADE, related_name='tasks', verbose_name='Владелец', 
     )
 
     class Meta:

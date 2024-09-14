@@ -10,6 +10,7 @@ class TaskListSerializer(ExtendedModelSerializer):
             'name',
             'status',
             'created',
+            'due_to',
             'owner',
         )
         read_only_fields = (
