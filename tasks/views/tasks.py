@@ -3,7 +3,7 @@ from tasks.models.task import Task
 from tasks.serializers.api.tasks import TaskListSerializer, TaskDetailSerializer
 from drf_spectacular.utils import extend_schema_view, extend_schema
 from django_filters import rest_framework as filters
-from rest_framework.filters import SearchFilter
+from rest_framework.filters import SearchFilter, OrderingFilter
 from tasks.filters import TaskFilter
 
 
@@ -18,9 +18,10 @@ from tasks.filters import TaskFilter
 class TasksModelView(LCRUDViewSet):
     queryset = Task.objects.all()
     serializer_class = TaskListSerializer
-    filter_backends = (filters.DjangoFilterBackend, SearchFilter)
+    filter_backends = (filters.DjangoFilterBackend, SearchFilter, OrderingFilter)
     filterset_class = TaskFilter
     search_fields = ('name',)
+    ordering_fields = ('name', 'created', 'due_to',)
 
     def get_serializer_class(self):
         if self.action in ['update', 'partial_update', 'retrieve', 'create']:
