@@ -7,6 +7,7 @@ from tasks.urls import urlpatterns as tasks_urls
 app_name = 'api'
 
 urlpatterns = [
+    path('auth/', include('djoser.urls')),
     path('auth/', include('djoser.urls.jwt')),
 ]
 

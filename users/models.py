@@ -9,6 +9,8 @@ class User(AbstractUser):
         'Никнейм', max_length=64, unique=True, null=True, blank=True
     )
     email = models.EmailField('Почта', unique=True, null=True, blank=True)
+    is_active = models.BooleanField(default=False)
+
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email']
 
